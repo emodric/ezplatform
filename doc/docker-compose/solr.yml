@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.2'
 # Solr config, to be appended after base-prod or base-dev, ..., but before selenium.yml
 #
 # This service will migrate to use offical Solr image and use entrypoint once Solr bundle supports SOLR6+.
@@ -16,8 +16,11 @@ services:
 
   solr:
     image: makuk66/docker-solr:4.10.4
-    volumes_from:
-     - app:ro
+    # TODO: Get rid of the volume, by extending solr image to build config into it
+    volumes:
+     - ${COMPOSE_DIR}/../../:/var/www:ro,cached
     environment:
      - EZ_SOLR_CONF="/var/www/vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr"
     command: /bin/bash -c "cp -R $${EZ_SOLR_CONF}/* /opt/solr/example/solr/collection1/conf/ && /opt/solr/bin/solr start -f"
+    networks:
+     - backend
