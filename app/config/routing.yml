@@ -27,6 +27,12 @@ _ezpublishPlatformUIRoutes:
 _ezplatformRepositoryFormsRoutes:
     resource: "@EzSystemsRepositoryFormsBundle/Resources/config/routing.yml"
 
-_contentOnTheFly:
-    resource: "@ContentOnTheFlyBundle/Resources/config/routing.yml"
+_multiFileUpload:
+    resource: "@EzSystemsMultiFileUploadBundle/Resources/config/routing.yml"
     prefix:   "%ezpublish_rest.path_prefix%"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+ez_hybrid_ui:
+    resource: "@EzSystemsHybridPlatformUiBundle/Resources/config/routing.yml"
