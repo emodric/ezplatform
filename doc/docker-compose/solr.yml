@@ -15,12 +15,11 @@ services:
      - SOLR_DSN=http://solr:8983/solr
 
   solr:
-    image: makuk66/docker-solr:4.10.4
-    # TODO: Get rid of the volume, by extending solr image to build config into it
-    volumes:
-     - ${COMPOSE_DIR}/../../:/var/www:ro,cached
-    environment:
-     - EZ_SOLR_CONF="/var/www/vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr"
-    command: /bin/bash -c "cp -R $${EZ_SOLR_CONF}/* /opt/solr/example/solr/collection1/conf/ && /opt/solr/bin/solr start -f"
+    build:
+      context: ../../
+      dockerfile: doc/docker-compose/Dockerfile-solr
+    ports:
+     - "8983:8983"
     networks:
+     - frontend
      - backend
